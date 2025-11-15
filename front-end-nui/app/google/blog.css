@@ -1,0 +1,11 @@
+.responsive-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (min-width: 640px) {
+  .responsive-row {
+    flex-direction: row;
+  }
+}

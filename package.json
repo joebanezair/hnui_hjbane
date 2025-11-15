@@ -10,17 +10,28 @@
     "start": "concurrently \"npm run start01\" \"npm run client\""
   },
   "dependencies": {
+    "@heroui/avatar": "^2.2.22",
+    "@heroui/system": "^2.4.23",
+    "@heroui/theme": "^2.4.23",
+    "@heroui/user": "^2.2.22",
     "bcrypt": "^6.0.0",
     "bcryptjs": "^2.4.3",
     "concurrently": "^9.2.1",
+    "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^4.21.2",
+    "framer-motion": "^12.23.24",
     "jsonwebtoken": "^9.0.2",
+    "lucide": "^0.553.0",
+    "lucide-react": "^0.553.0",
     "mongodb": "^7.0.0",
     "mongoose": "^8.19.3",
     "multer": "^2.0.2",
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "passport": "^0.7.0",
+    "passport-google-oauth20": "^2.0.0",
+    "tailwindcss": "^4.0.0"
   },
   "author": "",
   "license": "ISC"

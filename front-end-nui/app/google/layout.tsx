@@ -3,7 +3,7 @@ import { Navbar } from "@/components/navbar";
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 
-export default function LoginLayout({
+export default function SignUpLayoutGoogle({
   children,
 }: {
   children: React.ReactNode;

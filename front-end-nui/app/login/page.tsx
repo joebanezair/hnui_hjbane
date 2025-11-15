@@ -1,77 +1,38 @@
 "use client";
-
+import { useRouter } from "next/navigation"; // ✅ correct import
 import { useState } from "react";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
 import { Card } from "@heroui/card";
 import { FcGoogle } from "react-icons/fc";
-import "./blog.css"; // optional for responsive styles
+import "./blog.css";
+import { LoginTextData } from "@/apptexts/TextAndLanguage"
 
 export default function LoginPage() {
-  // const [email, setEmail] = useState("");
-  // const [password, setPassword] = useState("");
-  // const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api";
-
-  // const handleLogin = async () => {
-  //   if (!email || !password) {
-  //     alert("Please enter both email and password");
-  //     return;
-  //   }
-
-  //   try {
-  //     const response = await fetch(`${API_BASE_URL}/auth/login`, {
-  //       method: "POST",
-  //       headers: { "Content-Type": "application/json" },
-  //       body: JSON.stringify({ email, password }),
-  //     });
-
-  //     const data = await response.json();
-  //     if (!response.ok) throw new Error(data.error || "Login failed");
-
-  //     localStorage.setItem("token", data.token);
-
-  //     // Optional: fetch profile
-  //     const profileRes = await fetch(`${API_BASE_URL}/auth/profile`, {
-  //       headers: { Authorization: `Bearer ${data.token}` },
-  //     });
-  //     const profile = await profileRes.json();
-  //     console.log("User profile:", profile);
-
-  //     window.location.href = "/dashboard";
-  //   } catch (error: any) {
-  //     console.error("Login error:", error.message);
-  //     alert(error.message);
-  //   }
-  // };
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api";
 
   const handleLogin = async () => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/auth/login`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email, password }),
-    });
+    try {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.error || "Login failed");
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || "Login failed");
 
-    localStorage.setItem("token", data.token);
+      localStorage.setItem("token", data.token);
 
-    // Optional: fetch profile
-    const profileRes = await fetch(`${API_BASE_URL}/auth/profile`, {
-      headers: { Authorization: `Bearer ${data.token}` },
-    });
-    const profile = await profileRes.json();
-    console.log("User profile:", profile);
-
-    window.location.href = "/dashboard";
-  } catch (error: any) {
-    alert(error.message);
-  }
-};
+      // Navigate to dashboard without reload
+      router.push("/dashboard"); // ✅ use router instead of window.location.href
+    } catch (error: any) {
+      alert(error.message);
+    }
+  };
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "1rem" }}>
@@ -88,15 +49,16 @@ export default function LoginPage() {
         radius="sm"
         shadow="none"
       >
-        <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Signin</h2>
+        <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{LoginTextData.LoginButton}</h2>
 
-        <Card className="responsive-row" radius="sm" shadow="none">
+        <Card className="responsive-row p-1" radius="sm" shadow="none">
           <Input
             size="sm"
             isClearable
             radius="sm"
             style={{ flex: 1, minWidth: "140px" }}
-            label="Email"
+            label={LoginTextData.EmailPlaceholder}
+
             placeholder="johndoe@gmail.com"
             type="email"
             variant="flat"
@@ -109,7 +71,7 @@ export default function LoginPage() {
             isClearable
             radius="sm"
             style={{ flex: 1, minWidth: "140px" }}
-            label="Password"
+            label={LoginTextData.PasswordPlaceholder}
             placeholder="Pass*****"
             type="password"
             variant="flat"
@@ -119,9 +81,11 @@ export default function LoginPage() {
           />
         </Card>
 
-        <Button onClick={handleLogin} color="primary" radius="sm" style={{ width: "100%" }}>
-          Sign In
-        </Button>
+        <Card className="p-1" shadow="none" radius="sm">
+          <Button onClick={handleLogin}  color="primary" radius="sm" style={{ width: "100%" }}>
+            {LoginTextData.LoginButton}
+          </Button>
+        </Card>
 
         <Card
           style={{
@@ -131,22 +95,27 @@ export default function LoginPage() {
             paddingTop: "10px",
             borderTop: "1px dotted lightgray",
           }}
-          radius="sm"
+          radius="none"
           shadow="none"
+          className="p-1"
         >
-          <p style={{ fontSize: 14, color: "gray" }}>Need an account?</p>
+          <p style={{ fontSize: 14, color: "gray" }}>{LoginTextData.NeedAnAccount}</p>
           <Button
-            onClick={() => (window.location.href = "/register")}
+            onClick={() => {
+              router.push("/signup"); // ✅ go to signup page
+            }}
             style={{ width: "100%", backgroundColor: "black", color: "white" }}
             radius="sm"
           >
-            Sign Up
+            {LoginTextData.SignupButton}
           </Button>
-          <Button variant="bordered" radius="sm" endContent={<FcGoogle />} style={{ width: "100%" }}>
-            Sign in with Google
+          <Button variant="bordered" onClick={() => {
+            router.push("/google"); // ✅ go to signup page
+          }} radius="sm" endContent={<FcGoogle />} style={{ width: "100%" }}>
+            {LoginTextData.SignInWithGoogle}
           </Button>
         </Card>
       </Card>
     </div>
   );
-}
+} 

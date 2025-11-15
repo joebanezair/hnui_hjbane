@@ -6,6 +6,8 @@ import { Input } from "@heroui/input";
 import { Card } from "@heroui/card";
 import { FcGoogle } from "react-icons/fc";
 import "./blog.css";
+import { SignupTextData } from "@/apptexts/TextAndLanguage";
+import { useRouter } from "next/navigation"; 
 
 export default function SignUPage() {
   const [firstName, setFirstName] = useState("");
@@ -13,6 +15,7 @@ export default function SignUPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const API_BASE_URL = process.env.API_BASE_URL || "http://localhost:5000/api";
+  const router = useRouter();
 
   const handleRegister = async () => {
     try {
@@ -35,6 +38,7 @@ export default function SignUPage() {
     }
   };
 
+  const signTxt = SignupTextData;
 
   return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", padding: "1rem" }}>
@@ -51,7 +55,7 @@ export default function SignUPage() {
         radius="sm"
         shadow="none"
       >
-        <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>Sign-up</h2>
+        <h2 style={{ fontSize: "1.5rem", fontWeight: "bold" }}>{signTxt.SignupButton}</h2>
 
         <Card className="responsive-row" radius="sm" shadow="none">
           <Input
@@ -125,18 +129,24 @@ export default function SignUPage() {
             paddingTop: "10px",
             borderTop: "1px dotted lightgray",
           }}
-          radius="sm"
+          radius="none"
           shadow="none"
         >
           <p style={{ fontSize: 14, color: "gray" }}>Already have an account?</p>
           <Button
-            onClick={() => (window.location.href = "/login")}
+           onClick={() => {
+              router.push("/login"); // ✅ go to signup page
+            }}
             style={{ width: "100%", backgroundColor: "black", color: "white" }}
             radius="sm"
           >
             Back to Sign In
           </Button>
-          <Button variant="bordered" radius="sm" endContent={<FcGoogle />} style={{ width: "100%" }}>
+          <Button variant="bordered"
+             onClick={() => {
+              router.push("/google"); // ✅ go to signup page
+            }}
+            radius="sm" endContent={<FcGoogle />} style={{ width: "100%" }}>
             Sign up with Google
           </Button>
         </Card>

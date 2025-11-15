@@ -16,13 +16,13 @@ export const siteConfig: SiteConfig = {
   name: "App",
   description: "Make beautiful websites regardless of your design experience.",
   navItems: [
-    { label: "Home", href: "/" },
+    // { label: "Home", href: "/" },
     { label: "About", href: "/about" }
   ],
   navMenuItems: [
-    { label: "Home", href: "/" },
+    // { label: "Home", href: "/" },
     { label: "About", href: "/about" },
-    { label: "Login", href: "/" },
+    { label: "Login", href: "/login" },
     { label: "Sign Up", href: "/signup" },
   ],
   links: {

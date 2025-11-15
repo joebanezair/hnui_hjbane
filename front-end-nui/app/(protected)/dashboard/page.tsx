@@ -1,12 +1,15 @@
 "use client";
+
 import { useEffect, useState } from "react";
-import { Button } from "@heroui/button"; // Optional: remove if not using HeroUI
-import { Navbar } from "../indoor_components/components/navbar";
-import { logoutWithRouter } from "../indoor_components/components/logoutWithRouter";
+import { Button } from "@heroui/button";
+import NavigationBar from "../indoor_components/components/navigationBar";
+import { Card } from "@heroui/card";
+import PostForm from "./dashboardcomponents/post";
+import RetrieveTaskList from "./dashboardcomponents/retrieve";
 
 export default function DashboardPage() {
   const [profile, setProfile] = useState<any>(null);
-  const API_BASE = process.env.API_BASE_URL || "http://localhost:5000/api";
+  const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api";
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -31,21 +34,20 @@ export default function DashboardPage() {
     };
 
     fetchProfile();
-  }, []);
+  }, [API_BASE]);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     window.location.href = "/login";
   };
 
-  return (<>
-    <Navbar />
-    <div style={{ padding: "2rem" }}>
+  const BodyMain = (
+    <>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
         <h1>
           Welcome{profile?.firstName ? `, ${profile.firstName}` : ""}!
         </h1>
-        <Button onClick={logoutWithRouter} color="danger" radius="sm">
+        <Button onClick={handleLogout} color="danger" radius="sm">
           Logout
         </Button>
       </div>
@@ -53,13 +55,34 @@ export default function DashboardPage() {
       <div style={{ marginTop: "1rem" }}>
         {profile ? (
           <div>
-            <h3>Profile Info:  {process.env.API_BASE_URL}</h3>
+            <h3>Profile Info: {API_BASE}</h3>
             <pre>{JSON.stringify(profile, null, 2)}</pre>
           </div>
         ) : (
           <p>Loading profile... {API_BASE}</p>
         )}
       </div>
-    </div>
-  </>);
+    </>
+  );
+
+  return (
+    <>
+      <NavigationBar />
+      <div style={{ padding: "0rem" }}>
+        <div className="flex flex-row gap-0 h-full" style={{ height: "calc(100vh - 64px)" }}>
+          <Card className="w-[70%] p-2" style={{}} radius="none" shadow="none">{BodyMain}</Card>
+          <div className="w-full p-2">
+            <div>
+              {PostForm()}
+            </div>
+            <div>
+              {RetrieveTaskList()}
+            </div>
+          </div>
+          <Card className="w-[70%] p-2" style={{}} radius="none" shadow="none">{BodyMain}</Card>
+        </div>
+      </div>
+    </>
+  );
 }
+ 
