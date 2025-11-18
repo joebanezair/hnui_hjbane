@@ -6,7 +6,7 @@ import NavigationBar from "../indoor_components/components/navigationBar";
 import { Card } from "@heroui/card";
 import PostForm from "./dashboardcomponents/post";
 import RetrieveTaskList from "./dashboardcomponents/retrieve";
-
+import {MyProfile} from "./usercomponents/profile";
 export default function DashboardPage() {
   const [profile, setProfile] = useState<any>(null);
   const API_BASE = process.env.NEXT_PUBLIC_API_BASE_URL || "http://localhost:5000/api";
@@ -70,16 +70,20 @@ export default function DashboardPage() {
       <NavigationBar />
       <div style={{ padding: "0rem" }}>
         <div className="flex flex-row gap-0 h-full" style={{ height: "calc(100vh - 64px)" }}>
-          <Card className="w-[70%] p-2" style={{}} radius="none" shadow="none">{BodyMain}</Card>
+          <Card className="w-[70%] p-2" style={{}} radius="none" shadow="none">
+            {/* {BodyMain} */}
+            </Card>
           <div className="w-full p-2">
             <div>
-              {PostForm()}
+              {/* {PostForm()} */}
             </div>
             <div>
-              {RetrieveTaskList()}
+              {/* {RetrieveTaskList()} */}
             </div>
           </div>
-          <Card className="w-[70%] p-2" style={{}} radius="none" shadow="none">{BodyMain}</Card>
+          <Card className="w-[70%] p-2" style={{}} radius="none" shadow="none">
+            {MyProfile()}
+            </Card>
         </div>
       </div>
     </>

@@ -3,6 +3,7 @@ import { Sign } from "crypto";
 const LoginTextData = {
     LoginButton: "Sign In",
     SignupButton: "Sign Up",
+    LogOut: "Log Out",
     EmailPlaceholder: "Enter your email",
     PasswordPlaceholder: "Enter your password",
     ForgotPassword: "Forgot your password?",

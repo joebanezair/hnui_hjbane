@@ -118,49 +118,49 @@ export default function TaskList() {
       ) : (
         <ul style={{ listStyle: "none", padding: 0 }}>
           {tasks.map((task) => (
-          <>
-             <li key={task._id} style={{ border: "1px solid #ccc", borderRadius: "8px", padding: "10px", marginBottom: "10px" }}>
-  <h3>{task.title}</h3>
-  <p>{task.description}</p>
-  <p>Status: {task.status}</p>
+            <>
+              <li key={task._id} style={{ border: "1px solid #ccc", borderRadius: "8px", padding: "10px", marginBottom: "10px" }}>
+                <h3>{task.title}</h3>
+                <p>{task.description}</p>
+                <p>Status: {task.status}</p>
 
-  {/* Update & Delete buttons */}
-  <div style={{ marginTop: "10px" }}>
-    {/* Example update: mark as completed */}
-    <button onClick={() => updateTask(task._id, { status: "completed" })}>
-      Mark Completed
-    </button>
+                {/* Update & Delete buttons */}
+                <div style={{ marginTop: "10px" }}>
+                  {/* Example update: mark as completed */}
+                  <button onClick={() => updateTask(task._id, { status: "completed" })}>
+                    Mark Completed
+                  </button>
 
-    {/* Example update: edit title/description */}
-    <button
-      onClick={() =>
-        updateTask(task._id, {
-          title: task.title + " (edited)",
-          description: task.description + " (updated)",
-        })
-      }
-      style={{ marginLeft: "10px" }}
-    >
-      Update
-    </button>
+                  {/* Example update: edit title/description */}
+                  <button
+                    onClick={() =>
+                      updateTask(task._id, {
+                        title: task.title + " (edited)",
+                        description: task.description + " (updated)",
+                      })
+                    }
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Update
+                  </button>
 
-    <button
-      onClick={() => deleteTask(task._id)}
-      style={{ marginLeft: "10px", color: "red" }}
-    >
-      Delete
-    </button>
-  </div>
-</li>
+                  <button
+                    onClick={() => deleteTask(task._id)}
+                    style={{ marginLeft: "10px", color: "red" }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
 
-          </>
+            </>
           ))}
         </ul>
       )}
     </div>
   );
 }
- 
+
 
 //  <li
 //               key={task._id}

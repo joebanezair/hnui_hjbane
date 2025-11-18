@@ -116,12 +116,12 @@ router.get(
 // Google OAuth configuration
 
 router.post('/register', async (req, res) => {
-  const { email, password, firstName, lastName } = req.body;
+  const { email, password, firstName, lastName, terms } = req.body;
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ error: 'Email already registered' });
 
-    const user = new User({ email, password, firstName, lastName });
+    const user = new User({ email, password, firstName, lastName, terms });
     await user.save();
 
     const token = jwt.sign({ id: user._id },  
